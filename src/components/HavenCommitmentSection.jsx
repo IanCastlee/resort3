@@ -33,7 +33,7 @@ export default function HavenCommitmentSection({ commitment }) {
 
   return (
     <section className="py-24 sm:py-32 bg-haven-bg border-b border-haven-border/40">
-      <div className="max-w-[1536px] mx-auto px-2 sm:px-8 lg:px-10">
+      <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10">
         {/* Header Grid: Eyebrow + Title on left, editorial paragraph on right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-20 sm:mb-24">
           <div className="lg:col-span-6 space-y-4">

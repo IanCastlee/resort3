@@ -39,7 +39,7 @@ export default function HavenFeatureRibbon({ items = [] }) {
   return (
     <div
       id="feature-ribbon"
-      className="w-full bg-white border-y border-haven-border/60 py-3 sm:py-5 px-2 sm:px-8 lg:px-10 shadow-sm"
+      className="w-full bg-white border-y border-haven-border/60 py-3 sm:py-5 px-5 sm:px-8 lg:px-10 shadow-sm"
     >
       <div className="max-w-[1536px] mx-auto flex flex-wrap items-center justify-center sm:justify-around gap-x-4 sm:gap-x-6 gap-y-2.5 sm:gap-y-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.16em] sm:tracking-[0.22em] text-haven-slate/90">
         {items.map((item, idx) => (

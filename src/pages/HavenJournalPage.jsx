@@ -11,7 +11,7 @@ export default function HavenJournalPage() {
         <title>{`The Journal & Retreat Stories | ${brand.name}`}</title>
       </Helmet>
 
-      <div className="text-center max-w-3xl mx-auto mb-16 px-2 sm:px-8 lg:px-10 space-y-4">
+      <div className="text-center max-w-3xl mx-auto mb-16 px-5 sm:px-8 lg:px-10 space-y-4">
         <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.32em] text-haven-goldDark font-semibold block">
           DISPATCHES &amp; ESSAYS
         </span>

@@ -36,7 +36,7 @@ export default function HavenContactPage() {
   };
 
   return (
-    <div className="pt-36 sm:pt-40 pb-28 px-2 sm:px-8 lg:px-10 max-w-[1536px] mx-auto">
+    <div className="pt-36 sm:pt-40 pb-28 px-5 sm:px-8 lg:px-10 max-w-[1536px] mx-auto">
       <Helmet>
         <title>{`Reserve & Contact | ${brand.name}`}</title>
       </Helmet>

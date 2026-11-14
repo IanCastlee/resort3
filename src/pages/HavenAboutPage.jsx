@@ -11,7 +11,7 @@ export default function HavenAboutPage() {
         <title>{`About Our Sanctuary | ${brand.name}`}</title>
       </Helmet>
 
-      <div className="max-w-5xl mx-auto px-2 sm:px-8 lg:px-10 text-center mb-20 space-y-4">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10 text-center mb-20 space-y-4">
         <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.32em] text-haven-goldDark font-semibold block">
           OUR STORY &amp; ETHOS
         </span>
@@ -24,7 +24,7 @@ export default function HavenAboutPage() {
       </div>
 
       {/* Featured Architecture Photo */}
-      <div className="max-w-[1536px] mx-auto px-2 sm:px-8 lg:px-10 mb-24">
+      <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10 mb-24">
         <div className="h-96 sm:h-[480px] rounded-3xl overflow-hidden shadow-xl border border-haven-stone">
           <img
             src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1600&q=85"

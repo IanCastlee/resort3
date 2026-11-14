@@ -7,7 +7,7 @@ export default function HavenJournalSection({ journal }) {
 
   return (
     <section className="py-24 sm:py-32 bg-white border-b border-haven-border/40">
-      <div className="max-w-[1536px] mx-auto px-2 sm:px-8 lg:px-10">
+      <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10">
         {/* Section Heading */}
         <div className="max-w-2xl mb-16 sm:mb-20 space-y-4">
           <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.32em] text-haven-goldDark font-semibold block">

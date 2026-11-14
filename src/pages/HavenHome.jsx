@@ -35,7 +35,7 @@ export default function HavenHome() {
 
       {/* Private Pool Villas Showcase */}
       <section className="py-24 sm:py-32 bg-haven-bg border-b border-haven-border/40">
-        <div className="max-w-[1536px] mx-auto px-2 sm:px-8 lg:px-10">
+        <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div className="max-w-2xl space-y-3">
               <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.32em] text-haven-goldDark font-semibold block">
@@ -73,7 +73,7 @@ export default function HavenHome() {
       <HavenTestimonials testimonials={testimonials} />
 
       {/* Reserve CTA Banner */}
-      <section className="py-28 px-2 sm:px-8 lg:px-10 bg-haven-deep text-white text-center relative overflow-hidden">
+      <section className="py-28 px-5 sm:px-8 lg:px-10 bg-haven-deep text-white text-center relative overflow-hidden">
         <div className="max-w-3xl mx-auto space-y-6 relative z-10">
           <span className="text-[10px] font-sans uppercase tracking-[0.32em] text-haven-goldLight block font-semibold">
             YOUR SECLUDED GETAWAY
