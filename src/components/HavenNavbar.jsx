@@ -16,10 +16,13 @@ export default function HavenNavbar({ brand, navigation }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isHome = location.pathname === '/';
+  const showDarkHeader = !isHome || isScrolled || mobileOpen;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-[110] transition-[background-color,padding,border-color,box-shadow] duration-300 ${
-        isScrolled || mobileOpen
+        showDarkHeader
           ? 'bg-haven-dark/95 backdrop-blur-md border-b border-white/10 shadow-xl py-2.5 sm:py-3.5'
           : 'bg-transparent border-b border-transparent shadow-none py-3 sm:py-5'
       }`}

@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import HavenNavbar from './HavenNavbar';
 import HavenFooter from './HavenFooter';
 import HavenDemoModal from './HavenDemoModal';
+import HavenCurtainLoader from './HavenCurtainLoader';
 
 export default function HavenLayout({ brand, navigation, children }) {
   return (
     <div className="min-h-screen flex flex-col bg-haven-bg text-haven-deep">
+      <HavenCurtainLoader brand={brand} />
       <HavenDemoModal />
       <HavenNavbar brand={brand} navigation={navigation} />
       <main className="flex-grow">{children}</main>
