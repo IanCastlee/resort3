@@ -3,60 +3,71 @@ import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
 /**
- * HavenCurtainLoader
- * Luxury split-curtain transition loader for EYHAN HAVEN Sanctuary.
- * Triggers on initial site mount / refresh and on route transitions.
+ * HavenCurtainLoader (EYHAN HAVEN Sanctuary)
+ * Style: Architectural 4-Column Cascading Shutter Reveal (Vertical Slat Cascade).
+ * Distinct from E-YHAN Resort's horizontal curtain split.
+ * Features:
+ * - 4 vertical architectural pillars that slide up sequentially with a staggered cascade.
+ * - Initial site open & refresh entrance reveal.
+ * - Staggered slide-down / slide-up transition between route changes.
+ * - StrictMode safe (never gets stuck on home or any page).
+ * - Safety watchdog timer guarantees dismissal under all circumstances.
  */
 export default function HavenCurtainLoader({ brand }) {
   const location = useLocation();
+  // Start 'closed' on page load/refresh so the user sees the loader first
   const [stage, setStage] = useState('closed'); // 'closed' | 'opening' | 'idle'
-  const isFirstMount = useRef(true);
-  const prevPathname = useRef(location.pathname);
+  const isFirstRoute = useRef(true);
+  const currentPath = useRef(location.pathname);
 
-  // Initial site load reveal
+  // 1. Initial site open / refresh grand entrance reveal
   useEffect(() => {
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
+    const openTimer = setTimeout(() => {
+      setStage('opening');
+    }, 750);
 
-      const openTimer = setTimeout(() => {
-        setStage('opening');
-      }, 700);
+    const idleTimer = setTimeout(() => {
+      setStage('idle');
+    }, 1600);
 
-      const idleTimer = setTimeout(() => {
-        setStage('idle');
-      }, 1450);
-
-      return () => {
-        clearTimeout(openTimer);
-        clearTimeout(idleTimer);
-      };
-    }
+    return () => {
+      clearTimeout(openTimer);
+      clearTimeout(idleTimer);
+    };
   }, []);
 
-  // Route change transitions
+  // 2. Route change staggered pillar transitions
   useEffect(() => {
-    if (location.pathname === prevPathname.current) {
+    // Skip initial mount route trigger (handled by the effect above)
+    if (isFirstRoute.current) {
+      isFirstRoute.current = false;
+      currentPath.current = location.pathname;
       return;
     }
-    prevPathname.current = location.pathname;
 
-    // Phase 1: Curtains glide in to close
+    // Skip if user clicked the same page link they are already viewing
+    if (location.pathname === currentPath.current) {
+      return;
+    }
+    currentPath.current = location.pathname;
+
+    // Phase 1: Pillars slide in to close
     setStage('closed');
 
-    // Scroll window to top cleanly while curtains are shut
+    // Smoothly reset scroll position while covered
     const scrollTimer = setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'instant' });
     }, 280);
 
-    // Phase 2: Hold briefly then open curtains
+    // Phase 2: Hold emblem briefly, then cascade pillars open
     const openTimer = setTimeout(() => {
       setStage('opening');
     }, 600);
 
-    // Phase 3: Transition fully finished, return to idle
+    // Phase 3: Transition finished, unmount from DOM
     const idleTimer = setTimeout(() => {
       setStage('idle');
-    }, 1250);
+    }, 1450);
 
     return () => {
       clearTimeout(scrollTimer);
@@ -64,6 +75,16 @@ export default function HavenCurtainLoader({ brand }) {
       clearTimeout(idleTimer);
     };
   }, [location.pathname]);
+
+  // 3. Absolute safety watchdog: Guarantee the loader CANNOT stay stuck
+  useEffect(() => {
+    if (stage !== 'idle') {
+      const watchdog = setTimeout(() => {
+        setStage('idle');
+      }, 2400);
+      return () => clearTimeout(watchdog);
+    }
+  }, [stage]);
 
   if (stage === 'idle') return null;
 
@@ -76,39 +97,75 @@ export default function HavenCurtainLoader({ brand }) {
         isFullyClosed ? 'pointer-events-auto' : 'pointer-events-none'
       }`}
     >
-      {/* Left Obsidian Curtain Panel */}
-      <div
-        className={`absolute top-0 bottom-0 left-0 w-1/2 bg-[#0e171f] border-r border-haven-gold/30 shadow-[20px_0_50px_rgba(0,0,0,0.85)] transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
-          isFullyClosed ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-haven-deep/40 to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-haven-gold/50 to-transparent" />
+      {/* 4 Architectural Vertical Columns with Staggered Cascading Slides */}
+      <div className="absolute inset-0 grid grid-cols-4 pointer-events-none">
+        {/* Column 1 (Leftmost) */}
+        <div
+          className={`h-full bg-[#0a1118] border-r border-haven-gold/30 shadow-2xl relative transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+            isFullyClosed ? 'translate-y-0' : '-translate-y-full'
+          }`}
+          style={{ transitionDelay: isFullyClosed ? '0ms' : '0ms' }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-haven-deep/40" />
+          <div className="absolute bottom-4 left-4 text-[9px] uppercase tracking-[0.28em] text-haven-gold/30 font-sans hidden sm:block">
+            01 &middot; ARCH
+          </div>
+        </div>
+
+        {/* Column 2 (Center-Left) */}
+        <div
+          className={`h-full bg-[#0e1720] border-r border-haven-gold/30 shadow-2xl relative transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+            isFullyClosed ? 'translate-y-0' : '-translate-y-full'
+          }`}
+          style={{ transitionDelay: isFullyClosed ? '60ms' : '90ms' }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-haven-deep/40" />
+          <div className="absolute bottom-4 left-4 text-[9px] uppercase tracking-[0.28em] text-haven-gold/30 font-sans hidden sm:block">
+            02 &middot; SHORE
+          </div>
+        </div>
+
+        {/* Column 3 (Center-Right) */}
+        <div
+          className={`h-full bg-[#0e1720] border-r border-haven-gold/30 shadow-2xl relative transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+            isFullyClosed ? 'translate-y-0' : '-translate-y-full'
+          }`}
+          style={{ transitionDelay: isFullyClosed ? '120ms' : '180ms' }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-haven-deep/40" />
+          <div className="absolute bottom-4 left-4 text-[9px] uppercase tracking-[0.28em] text-haven-gold/30 font-sans hidden sm:block">
+            03 &middot; FLORA
+          </div>
+        </div>
+
+        {/* Column 4 (Rightmost) */}
+        <div
+          className={`h-full bg-[#0a1118] shadow-2xl relative transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+            isFullyClosed ? 'translate-y-0' : '-translate-y-full'
+          }`}
+          style={{ transitionDelay: isFullyClosed ? '180ms' : '270ms' }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-haven-deep/40" />
+          <div className="absolute bottom-4 left-4 text-[9px] uppercase tracking-[0.28em] text-haven-gold/30 font-sans hidden sm:block">
+            04 &middot; COVE
+          </div>
+        </div>
       </div>
 
-      {/* Right Obsidian Curtain Panel */}
+      {/* Center Botanical Monogram & Sanctuary Emblem */}
       <div
-        className={`absolute top-0 bottom-0 right-0 w-1/2 bg-[#0e171f] border-l border-haven-gold/30 shadow-[-20px_0_50px_rgba(0,0,0,0.85)] transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
-          isFullyClosed ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="absolute inset-0 bg-gradient-to-l from-black/85 via-haven-deep/40 to-transparent" />
-        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-haven-gold/50 to-transparent" />
-      </div>
-
-      {/* Center Grand Monogram & Brand Crest */}
-      <div
-        className={`absolute inset-0 flex flex-col items-center justify-center z-10 transition-all duration-400 ease-out ${
-          isFullyClosed ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+        className={`absolute inset-0 flex flex-col items-center justify-center z-10 transition-all duration-350 ease-out ${
+          isFullyClosed ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'
         }`}
       >
         <div className="relative flex flex-col items-center text-center px-6">
-          {/* Botanical Haven Monogram */}
+          {/* Botanical Haven Crest with Warm Gold Glow */}
           <div className="relative mb-3 sm:mb-4">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-haven-gold flex items-center justify-center font-serif text-2xl sm:text-3xl text-haven-gold shadow-[0_0_35px_rgba(197,160,89,0.35)] bg-[#14202b]">
-              {brand?.name ? brand.name.charAt(0) : 'H'}
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl rotate-45 border border-haven-gold flex items-center justify-center font-serif text-2xl sm:text-3xl text-haven-gold shadow-[0_0_35px_rgba(197,160,89,0.35)] bg-[#121c26]">
+              <span className="-rotate-45">{brand?.name ? brand.name.charAt(0) : 'H'}</span>
             </div>
-            <div className="absolute -inset-1.5 rounded-full border border-haven-gold/30 animate-pulse pointer-events-none" />
+            {/* Subtle outer diamond ring */}
+            <div className="absolute -inset-2 rounded-2xl rotate-45 border border-haven-gold/30 animate-pulse pointer-events-none" />
           </div>
 
           {/* Luxury Brand Title */}
@@ -127,9 +184,11 @@ export default function HavenCurtainLoader({ brand }) {
             Coastal Reserve &amp; Sanctuary
           </span>
 
-          {/* Subtle Golden Shimmer Loading Line */}
-          <div className="w-32 sm:w-44 h-0.5 bg-white/10 rounded-full overflow-hidden relative">
-            <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent via-haven-gold to-transparent w-full animate-pulse" />
+          {/* Editorial Cascade Progress Indicator */}
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-0.5 bg-haven-gold rounded-full animate-pulse" />
+            <span className="w-6 h-0.5 bg-haven-gold/60 rounded-full" />
+            <span className="w-2 h-0.5 bg-haven-gold/30 rounded-full" />
           </div>
         </div>
       </div>
