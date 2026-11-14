@@ -7,7 +7,7 @@ export default function HavenVillasPage() {
   const { brand, villas } = havenData;
 
   return (
-    <div className="pt-36 sm:pt-40 pb-28 px-5 sm:px-8 lg:px-10 max-w-[1536px] mx-auto">
+    <div className="pt-36 sm:pt-40 pb-28 px-4 sm:px-8 lg:px-10 max-w-[1536px] mx-auto">
       <Helmet>
         <title>{`Private Pool Villas & Suites | ${brand.name}`}</title>
       </Helmet>

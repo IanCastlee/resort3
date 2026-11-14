@@ -27,7 +27,7 @@ export default function HavenNavbar({ brand, navigation }) {
           : 'bg-transparent border-b border-transparent shadow-none py-3 sm:py-5'
       }`}
     >
-      <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-10 flex items-center justify-between">
         {/* Brand Logo with Botanical / Wave mark */}
         <button
           onClick={() => navigate('/')}

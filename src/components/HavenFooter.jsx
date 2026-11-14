@@ -6,7 +6,7 @@ export default function HavenFooter({ brand, navigation }) {
 
   return (
     <footer className="bg-haven-dark text-haven-stone pt-20 pb-12 border-t border-haven-slate">
-      <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-10">
         {/* Top Newsletter / Circle Bar */}
         <div className="pb-16 border-b border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-6 space-y-2">

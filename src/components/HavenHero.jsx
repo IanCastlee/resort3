@@ -27,7 +27,7 @@ export default function HavenHero({ hero, brand }) {
       </div>
 
       {/* Hero Content Container - Perfectly centered in viewport */}
-      <div className="relative z-10 max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10 w-full pt-16 sm:pt-20 pb-16">
+      <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-10 w-full pt-16 sm:pt-20 pb-16">
         <div className="max-w-2xl space-y-4 sm:space-y-6">
           {/* Eyebrow */}
           <div className="inline-flex items-center gap-2.5 sm:gap-3">

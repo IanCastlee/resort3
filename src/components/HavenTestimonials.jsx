@@ -4,7 +4,7 @@ import HavenReveal from './HavenReveal';
 export default function HavenTestimonials({ testimonials }) {
   return (
     <section className="py-24 sm:py-32 bg-haven-cream/60 border-b border-haven-border/40">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-[71px] text-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-[71px] text-center">
         <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.32em] text-haven-goldDark font-semibold block mb-3">
           GUEST REFLECTIONS
         </span>

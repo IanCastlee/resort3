@@ -43,7 +43,7 @@ export default function HavenExperiencesPage() {
   ];
 
   return (
-    <div className="pt-36 sm:pt-40 pb-28 px-5 sm:px-8 lg:px-10 max-w-[1536px] mx-auto">
+    <div className="pt-36 sm:pt-40 pb-28 px-4 sm:px-8 lg:px-10 max-w-[1536px] mx-auto">
       <Helmet>
         <title>{`Curated Experiences & Adventures | ${brand.name}`}</title>
       </Helmet>

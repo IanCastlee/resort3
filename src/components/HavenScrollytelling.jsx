@@ -46,7 +46,7 @@ export default function HavenScrollytelling({ scrollytelling }) {
   return (
     <section className="relative py-28 bg-haven-cream/50 border-b border-haven-border/40">
       {/* Section Header */}
-      <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10 mb-16 sm:mb-24 text-center">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-10 mb-16 sm:mb-24 text-center">
         <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.32em] text-haven-goldDark font-semibold block mb-3">
           {eyebrow}
         </span>
@@ -79,7 +79,7 @@ export default function HavenScrollytelling({ scrollytelling }) {
       </div>
 
       {/* Scrollytelling Stage: Sticky Visual Stage + Narrative Stream */}
-      <div className="max-w-[1536px] mx-auto px-5 sm:px-8 lg:px-10">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start relative">
           {/* Sticky Visual Canvas (Sticks on desktop & mobile) */}
           <div className="lg:col-span-6 sticky top-20 lg:top-28 z-20">
