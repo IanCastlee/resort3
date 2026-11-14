@@ -2,19 +2,39 @@ import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
+/**
+ * HavenCurtainLoader
+ * Luxury split-curtain transition loader for EYHAN HAVEN Sanctuary.
+ * Triggers on initial site mount / refresh and on route transitions.
+ */
 export default function HavenCurtainLoader({ brand }) {
   const location = useLocation();
-  const [stage, setStage] = useState('idle'); // 'idle' | 'closed' | 'opening'
+  const [stage, setStage] = useState('closed'); // 'closed' | 'opening' | 'idle'
   const isFirstMount = useRef(true);
   const prevPathname = useRef(location.pathname);
 
+  // Initial site load reveal
   useEffect(() => {
-    // Only trigger when actually changing pages, not on initial site load
     if (isFirstMount.current) {
       isFirstMount.current = false;
-      return;
-    }
 
+      const openTimer = setTimeout(() => {
+        setStage('opening');
+      }, 700);
+
+      const idleTimer = setTimeout(() => {
+        setStage('idle');
+      }, 1450);
+
+      return () => {
+        clearTimeout(openTimer);
+        clearTimeout(idleTimer);
+      };
+    }
+  }, []);
+
+  // Route change transitions
+  useEffect(() => {
     if (location.pathname === prevPathname.current) {
       return;
     }
@@ -31,12 +51,12 @@ export default function HavenCurtainLoader({ brand }) {
     // Phase 2: Hold briefly then open curtains
     const openTimer = setTimeout(() => {
       setStage('opening');
-    }, 550);
+    }, 600);
 
     // Phase 3: Transition fully finished, return to idle
     const idleTimer = setTimeout(() => {
       setStage('idle');
-    }, 1050);
+    }, 1250);
 
     return () => {
       clearTimeout(scrollTimer);
@@ -52,57 +72,65 @@ export default function HavenCurtainLoader({ brand }) {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-[200] pointer-events-none overflow-hidden"
+      className={`fixed inset-0 z-[250] overflow-hidden ${
+        isFullyClosed ? 'pointer-events-auto' : 'pointer-events-none'
+      }`}
     >
-      {/* Left Curtain Panel */}
+      {/* Left Obsidian Curtain Panel */}
       <div
-        className={`absolute top-0 bottom-0 left-0 w-1/2 bg-[#0c131d] border-r border-haven-gold/30 shadow-[15px_0_40px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+        className={`absolute top-0 bottom-0 left-0 w-1/2 bg-[#0e171f] border-r border-haven-gold/30 shadow-[20px_0_50px_rgba(0,0,0,0.85)] transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
           isFullyClosed ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {/* Subtle Silk / Luxury Depth Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-haven-deep/40 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-haven-gold/50 to-transparent" />
       </div>
 
-      {/* Right Curtain Panel */}
+      {/* Right Obsidian Curtain Panel */}
       <div
-        className={`absolute top-0 bottom-0 right-0 w-1/2 bg-[#0c131d] border-l border-haven-gold/30 shadow-[-15px_0_40px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+        className={`absolute top-0 bottom-0 right-0 w-1/2 bg-[#0e171f] border-l border-haven-gold/30 shadow-[-20px_0_50px_rgba(0,0,0,0.85)] transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
           isFullyClosed ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        {/* Subtle Silk / Luxury Depth Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-l from-black/85 via-haven-deep/40 to-transparent" />
+        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-haven-gold/50 to-transparent" />
       </div>
 
-      {/* Center Luxury Emblem & Monogram (Revealed while curtains are closed) */}
+      {/* Center Grand Monogram & Brand Crest */}
       <div
-        className={`absolute inset-0 flex flex-col items-center justify-center z-10 transition-all duration-300 ${
-          isFullyClosed ? 'opacity-100 scale-100 delay-150' : 'opacity-0 scale-95'
+        className={`absolute inset-0 flex flex-col items-center justify-center z-10 transition-all duration-400 ease-out ${
+          isFullyClosed ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
         }`}
       >
         <div className="relative flex flex-col items-center text-center px-6">
-          {/* Glowing Crest Circle */}
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-haven-gold flex items-center justify-center text-haven-gold mb-3 sm:mb-4 shadow-[0_0_30px_rgba(197,160,89,0.35)] bg-[#0f172a]">
-            <svg className="w-7 h-7 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-            </svg>
+          {/* Botanical Haven Monogram */}
+          <div className="relative mb-3 sm:mb-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-haven-gold flex items-center justify-center font-serif text-2xl sm:text-3xl text-haven-gold shadow-[0_0_35px_rgba(197,160,89,0.35)] bg-[#14202b]">
+              {brand?.name ? brand.name.charAt(0) : 'H'}
+            </div>
+            <div className="absolute -inset-1.5 rounded-full border border-haven-gold/30 animate-pulse pointer-events-none" />
           </div>
 
-          {/* Brand Name */}
-          <h2 className="font-sans text-lg sm:text-2xl font-bold tracking-[0.28em] text-white uppercase mb-1">
-            {brand?.name || 'E-YHAN'}
+          {/* Luxury Brand Title */}
+          <h2 className="font-sans text-xl sm:text-3xl font-bold tracking-[0.28em] text-white uppercase mb-1 drop-shadow-lg">
+            {brand?.name || 'EYHAN HAVEN'}
           </h2>
 
           {/* Symmetrical Gold Line Divider */}
-          <div className="flex items-center gap-3 my-1.5 sm:my-2">
-            <span className="w-8 sm:w-12 h-px bg-haven-gold/70" />
+          <div className="flex items-center gap-3 my-2 sm:my-2.5">
+            <span className="w-10 sm:w-16 h-px bg-haven-gold/70" />
             <span className="w-1.5 h-1.5 rotate-45 bg-haven-gold" />
-            <span className="w-8 sm:w-12 h-px bg-haven-gold/70" />
+            <span className="w-10 sm:w-16 h-px bg-haven-gold/70" />
           </div>
 
-          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.34em] text-haven-goldLight font-sans font-medium">
-            {brand?.tagline || 'Sanctuary & Coastal Reserve'}
+          <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.34em] text-haven-goldLight font-sans font-medium mb-4">
+            Coastal Reserve &amp; Sanctuary
           </span>
+
+          {/* Subtle Golden Shimmer Loading Line */}
+          <div className="w-32 sm:w-44 h-0.5 bg-white/10 rounded-full overflow-hidden relative">
+            <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent via-haven-gold to-transparent w-full animate-pulse" />
+          </div>
         </div>
       </div>
     </div>
@@ -110,5 +138,7 @@ export default function HavenCurtainLoader({ brand }) {
 }
 
 HavenCurtainLoader.propTypes = {
-  brand: PropTypes.object,
+  brand: PropTypes.shape({
+    name: PropTypes.string,
+  }),
 };
